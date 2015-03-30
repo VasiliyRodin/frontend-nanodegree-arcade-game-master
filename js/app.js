@@ -3,7 +3,6 @@ var Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
-
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -29,7 +28,7 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
-var Player = function(startX, startY) {    
+var Player = function(startX, startY) {
     this.sprite = 'images/char-boy.png'
     this.x = startX;
     this.y = startY;
@@ -39,9 +38,22 @@ var Player = function(startX, startY) {
 }
 
 Player.prototype.update = function(){
-    this.x += this.changeX;
-    this.y += this.changeY;
-
+    if(this.x+ this.changeX < 0){
+        this.x=0;
+    }
+    else if(this.x + this.changeX > 400){
+        this.x = 400;        
+    }
+    else if(this.y + this.changeY < 30){
+        this.y = 30;
+    }
+    else if (this.y + this.changeY > 430){
+        this.y = 435;
+    }
+    else {
+        this.x += this.changeX;
+        this.y += this.changeY;
+    }
     this.changeX=0;
     this.changeY=0;
 }
@@ -81,7 +93,7 @@ var player = new Player(200,425);
 
 var allEnemies = [];
 
-
+new Enemy;
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
