@@ -1,8 +1,12 @@
 // Enemies our player must avoid
-var Enemy = function() {
+var Enemy = function(enemyStartY) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-
+    this.x = this.changeX;
+    
+    // which y position the bug starts
+    this.y = (enemyStartY * 83)+83;
+    this.x = 0;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -15,7 +19,7 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     
-    this.update(dt);
+    //this.update(dt);
     
 }
 
@@ -93,7 +97,9 @@ var player = new Player(200,425);
 
 var allEnemies = [];
 
-new Enemy;
+for( var i = 0; i < 4; i++){
+    allEnemies.push(new Enemy(i));
+}
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
