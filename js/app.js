@@ -2,14 +2,13 @@
 var Enemy = function(enemyStartY) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    
-    var speed = Math.floor(Math.random()*(200-80+1))+80;    
+    //Set initial random speed
+    var speed = Math.floor(Math.random()*(250-100+1))+100;    
     // which y position the bug starts
     this.y = (enemyStartY * 83)+60;
-    this.x = -2;
+    this.x = -200;
     this.speed = speed;
     // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
 }
 
@@ -20,10 +19,17 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
     
-    //Gets the bugs to move at random speeds
+    //Gets the bugs to move at random initital speed speeds
     this.x += (this.speed*dt);
+    if(this.x > 525){
+        updateSpeedOrientation(dt)
+    }
+}
+// have update that will reset speed and orientaion when bug is off screen
+Enemy.prototype.updateSpeedOrientation = function(dt) {
+    var speed = Math.floor(Math.random()*(250-100+1))+100;
     
-    //this.update(dt);
+    this.x = -150;
     
 }
 
