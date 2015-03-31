@@ -2,11 +2,12 @@
 var Enemy = function(enemyStartY) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    this.x = this.changeX;
     
+    var speed = Math.floor(Math.random()*(200-80+1))+80;    
     // which y position the bug starts
-    this.y = (enemyStartY * 83)+83;
-    this.x = 0;
+    this.y = (enemyStartY * 83)+60;
+    this.x = -2;
+    this.speed = speed;
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -18,6 +19,9 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    
+    //Gets the bugs to move at random speeds
+    this.x += (this.speed*dt);
     
     //this.update(dt);
     
@@ -48,11 +52,11 @@ Player.prototype.update = function(){
     else if(this.x + this.changeX > 400){
         this.x = 400;        
     }
-    else if(this.y + this.changeY < 30){
-        this.y = 30;
+    else if(this.y + this.changeY < 40){
+        this.y = 40;
     }
-    else if (this.y + this.changeY > 430){
-        this.y = 435;
+    else if (this.y + this.changeY > 400){
+        this.y = 400;
     }
     else {
         this.x += this.changeX;
@@ -60,6 +64,19 @@ Player.prototype.update = function(){
     }
     this.changeX=0;
     this.changeY=0;
+    
+    //colide check
+    if(this.collide()){
+        this.reset();
+    }
+    
+}
+// calculates if player has collided with bugs
+Player.prototype.collide = function(){
+    for(var i = 0; i < allEnemies.length; i++){
+        if(this.x < allEnemies[i].x + 50 && this.x +50 > allEnemies[i] && this.y < allEnemies[i].y + 50 && this.y +50 > allEnemies[i])
+            console.log("it works.");
+    }
 }
 
 Player.prototype.render = function(){
@@ -93,7 +110,7 @@ Player.prototype.handleInput = function(key){
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var player = new Player(200,425);
+var player = new Player(200,400);
 
 var allEnemies = [];
 
