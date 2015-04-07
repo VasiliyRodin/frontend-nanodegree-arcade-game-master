@@ -2,14 +2,25 @@
 var Enemy = function(enemyStartY) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
-    //Set initial random speed
-    var speed = Math.floor(Math.random()*(250-100+1))+100;    
+    
     // which y position the bug starts
     this.y = (enemyStartY * 83)+60;
     this.x = -200;
-    this.speed = speed;
+    //initial speed
+    this.speed = this.getSpeed();
     // The image/sprite for our enemies, this uses
     this.sprite = 'images/enemy-bug.png';
+}
+// Puts all bugs back into start location
+Enemy.prototype.bugReset = function (){
+    for(var i = 0; i < allEnemies.length; i++)
+        allEnemies[i].x = -200;
+}
+
+//Randomizes speed everytime it is called.
+Enemy.prototype.getSpeed = function() {
+    var speed = Math.floor(Math.random()*(250-100+1))+100;
+    return speed;
 }
 
 // Update the enemy's position, required method for game
@@ -21,16 +32,16 @@ Enemy.prototype.update = function(dt) {
     
     //Gets the bugs to move at random initital speed speeds
     this.x += (this.speed*dt);
+    //resets position of bug after it hits certian spot and re-assigns a speed to it
     if(this.x > 525){
-        updateSpeedOrientation(dt)
+        this.x = -200;
+        this.speed = this.getSpeed();
+        
     }
 }
-// have update that will reset speed and orientaion when bug is off screen
+// have update that will change speed and orientaion when bug is off screen
 Enemy.prototype.updateSpeedOrientation = function(dt) {
-    var speed = Math.floor(Math.random()*(250-100+1))+100;
-    
-    this.x = -150;
-    
+    return speed = (Math.floor(Math.random()*(250-100+1))+100)*dt;
 }
 
 // Draw the enemy on the screen, required method for game
@@ -71,17 +82,26 @@ Player.prototype.update = function(){
     this.changeX=0;
     this.changeY=0;
     
-    //colide check
-    if(this.collide()){
-        this.reset();
+    if (this.collide()) {
+        Enemy.bugReset();
+        this.resetPlayer();
     }
-    
 }
+
+
+Player.prototype.resetPlayer = function () {
+    this.x = 200;
+    this.y = 400;
+}
+    
 // calculates if player has collided with bugs
 Player.prototype.collide = function(){
     for(var i = 0; i < allEnemies.length; i++){
-        if(this.x < allEnemies[i].x + 50 && this.x +50 > allEnemies[i] && this.y < allEnemies[i].y + 50 && this.y +50 > allEnemies[i])
-            console.log("it works.");
+        if(this.x < allEnemies[i].x + 50 && this.x +50 > allEnemies[i] && this.y < allEnemies[i].y + 50 && this.y +50 > allEnemies[i]) {
+            return true;
+        }
+        else
+            return false;
     }
 }
 
