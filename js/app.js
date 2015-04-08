@@ -82,7 +82,7 @@ Player.prototype.update = function(){
     this.changeX=0;
     this.changeY=0;
     
-    if (this.collide()) {
+    if (player.collide()=== true) {
         Enemy.bugReset();
         this.resetPlayer();
     }
