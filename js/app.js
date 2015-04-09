@@ -84,13 +84,13 @@ Player.prototype.update = function () {
     
     this.collide();
 }
-
+// Checks to see if any collisions happen, if they do it resets everything.
 Player.prototype.collide = function () {
     for(var i=0; i < allEnemies.length; i++) {
         if (this.x < allEnemies[i].x + 50 && this.x + 50 > allEnemies[i].x && this.y < allEnemies[i].y + 30 && this.y + 30 > allEnemies[i].y) {
             console.log("Deeecent");
-            Enemy.bugReset();
             this.resetPlayer();
+            allEnemies[i].bugReset();
         }    
     }
 }
