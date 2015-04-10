@@ -72,10 +72,10 @@ Player.prototype.update = function () {
     }
     //If the player reaches the river they get teleported back the bottom
     else if (this.y + this.changeY < 40) {
-        this.y = 400;
+        this.y = 370;
     }
-    else if (this.y + this.changeY > 400) {
-        this.y = 400;
+    else if (this.y + this.changeY > 370) {
+        this.y = 370;
     }
     else {
         this.x += this.changeX;
@@ -111,19 +111,19 @@ Player.prototype.render = function () {
 Player.prototype.handleInput = function (key) {
     switch (key) {
         case 'right':
-            this.changeX = 40;
+            this.changeX = 100;
             break;
 
         case 'left':
-            this.changeX = -40;
+            this.changeX = -100;
             break;
 
         case 'up':
-            this.changeY = -40;
+            this.changeY = -80;
             break;
 
         case 'down':
-            this.changeY = 40;
+            this.changeY = 80;
             break;
 
         default:
@@ -135,7 +135,7 @@ Player.prototype.handleInput = function (key) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var player = new Player(200, 400);
+var player = new Player(200, 370);
 
 var allEnemies = [];
 
