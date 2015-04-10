@@ -10,18 +10,19 @@ var Enemy = function (enemyStartY) {
     this.speed = this.getSpeed();
     // The image/sprite for our enemies, this uses
     this.sprite = 'images/enemy-bug.png';
-}
+};
+
 // Puts all bugs back into start location
 Enemy.prototype.bugReset = function () {
     for (var i = 0; i < allEnemies.length; i++)
         allEnemies[i].x = -200;
-}
+};
 
 //Randomizes speed everytime it is called.
 Enemy.prototype.getSpeed = function () {
     var speed = Math.floor(Math.random() * (250 - 100 + 1)) + 100;
     return speed;
-}
+};
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -38,29 +39,29 @@ Enemy.prototype.update = function (dt) {
         this.speed = this.getSpeed();
 
     }
-}
+};
 // have update that will change speed and orientaion when bug is off screen
 Enemy.prototype.updateSpeedOrientation = function (dt) {
     return speed = (Math.floor(Math.random() * (250 - 100 + 1)) + 100) * dt;
-}
+};
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 
 var Player = function (startX, startY) {
-    this.sprite = 'images/char-boy.png'
+    this.sprite = 'images/char-boy.png';
     this.x = startX;
     this.y = startY;
 
     this.changeX = 0;
     this.changeY = 0;
-}
+};
 
 Player.prototype.update = function () {
     if (this.x + this.changeX < 0) {
@@ -84,7 +85,8 @@ Player.prototype.update = function () {
     this.changeY = 0;
     
     this.collide();
-}
+};
+
 // Checks to see if any collisions happen, if they do it resets everything.
 Player.prototype.collide = function () {
     for(var i=0; i < allEnemies.length; i++) {
@@ -94,46 +96,46 @@ Player.prototype.collide = function () {
             allEnemies[i].bugReset();
         }    
     }
-}
+};
 
 
 Player.prototype.resetPlayer = function () {
     this.x = 200;
     this.y = 400;
-}
+};
 
 Player.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 Player.prototype.handleInput = function (key) {
     switch (key) {
         case 'right':
-            this.changeX = 30;
+            this.changeX = 40;
             break;
 
         case 'left':
-            this.changeX = -30;
+            this.changeX = -40;
             break;
 
         case 'up':
-            this.changeY = -30;
+            this.changeY = -40;
             break;
 
         case 'down':
-            this.changeY = 30;
+            this.changeY = 40;
             break;
 
         default:
             break;
     }
-}
+};
 
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var player = new Player(200, 400);
+var player = new Player(200, 380);
 
 var allEnemies = [];
 
